@@ -12,10 +12,11 @@ class JIRA:
         self.username = username
         self.password = password
 
-    def search(self, jql, offset=None, limit=None, fields=None):
+    def search(self, jql, offset=None, limit=None, fields=None, expand=None):
         return self.callJiraAPI("GET", "/rest/api/2/search?"
                                 + "jql=" + urllib.quote(jql)
                                 + ("&fields={0}".format(urllib.quote(','.join(fields))) if fields else "")
+                                + ("&expand={0}".format(urllib.quote(','.join(expand))) if expand else "")
                                 + ("&startAt={0}".format(offset) if offset else "")
                                 + ("&maxResults={0}".format(limit) if limit else ""))
 
